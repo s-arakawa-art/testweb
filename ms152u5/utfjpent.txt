@@ -1,0 +1,356 @@
+#
+# utfjpent.txt 日本語文字コード <-> Unicode間相互変換ライブラリ
+#
+# Ver 1.00 2004/04/15
+#
+# Copyright(C) 1986-2004 International Organization for Standardization. All rights reserved.
+#
+#
+# 文字実体参照からUnicode(UCS-2,UCS-4)へのマッピングテーブル
+# 変換対象から除外する数値文字参照のリスト
+#
+#
+# 本マッピングテーブルはISOが作成したHTML4のDTDから文字実体参照のリスト部を抽出し、
+# 再配布するものです。使用するには、ISO及び改造者(毛流麦花)が定める利用規定に同意する必要があります。
+#
+# [ISOの定める利用規定]
+# Portions (C) International Organization for Standardization 1986
+# Permission to copy in any form is granted for use with
+# conforming SGML systems and applications as defined in
+# ISO 8879, provided this notice is included in all copies.
+#
+# [改造者の定める利用規定]
+# (1)本マッピングテーブルの著作権はISOに帰属します。
+# (2)本マッピングテーブルを使用したことによるいかなる損害、トラブル、損失、結果についても
+#    改造者は責任を負いません。
+# (3)本マッピングテーブル(utfjpent.txt)内の著作権表記、利用規定を削除することはできません。
+# (4)本マッピングテーブルは商用目的、非商用目的のいずれにも自由にお使いいただけます。
+# (5)本マッピングテーブル(utfjpent.txt)は改変の有無を問わず自由に再配布できます。
+#    改造者の事前・事後の承諾を得る必要はありませんし、改造者に連絡する必要もありません。
+# (6)前(5)項の再配布に伴って発生したいかなる損害、トラブル、損失、結果についても
+#    改造者（毛流麦花）は責任を負いません。
+# (7)本マッピングテーブルの誤謬について改造者は修正する義務を負いません。
+# (8)改造者は本マッピングテーブルに関する依頼・質問に答える義務を負いません。
+#
+#
+# ■本ファイルは必ずEUC+LF（文字コード:EUC、改行コード:LF）で保存してください。■
+#
+#
+#----------------------------------------------------------------------------------------
+#
+# ■変換を行わない数値文字参照のリスト
+#
+# 数値文字参照の中で変換を行わないUnicode番号を定義します。
+#
+# [記述例]
+# $numerical_char_reference_exception = (60, 62)
+# $numerical_char_reference_exception = (0x152, 0x153)
+#
+# 上記定義で&#60; &#62; &#x152; &#x153;は文字そのものに置換されなくなります。
+#
+# ・#で始まる行はコメント行とみなされ、無視されます。
+# ・Unicode番号は10進数もしくは16進数表記で記述します。(16進数表記にする場合は頭に0xを付けます。)
+# ・1以上の任意の数のUnicode番号を半角コンマで区切って並べ、()で囲みます。
+# ・指定できるUnicode番号は以下の範囲です。
+#   0x0000     - 0xFFFF      16進数表記のUCS-2(U+0000     - U+FFFF)
+#   0x00000000 - 0x0010FFFF  16進数表記のUCS-4(U+00000000 - U+0010FFFF)
+#   0          - 65535       10進数表記のUCS-2(U+0000     - U+FFFF)
+#   0          - 1114111     10進数表記のUCS-4(U+00000000 - U+0010FFFF)
+#
+# ・定義は複数行に分けて行うことも可能です。重複する定義を行っても問題ありません。
+#   ただし一度行った定義を取り消すことはできません。
+#
+#----------------------------------------------------------------------------------------
+$numerical_char_reference_exception = (60, 62)
+
+
+
+#----------------------------------------------------------------------------------------
+#
+# ■文字実体参照名からUnicode番号へのマッピングテーブル
+#
+# 文字実体参照をどのUnicode文字に置換するかを定義します。
+#
+# [記述内容]
+# 1番目のカラム         文字実体参照名(character entity reference name)
+# 2番目のカラム         Unicode番号(UCS-2,UCS-4)
+#
+# ・#で始まる行はコメント行とみなされ、無視されます。
+# ・Unicode番号は10進数もしくは16進数表記で記述します。(16進数表記にする場合は頭に0xを付けます。)
+# ・各カラムの間は1以上の任意の数の半角スペース・タブで区切ります。
+# ・1番目のカラムは英文字の大文字・小文字が区別されます。
+#                                          ^^^^^^^^^^^^
+# ・2番目のカラムの後方に半角スペース・タブで区切って#を記述すると、#以降にコメントを記述できます。
+# ・本テーブルでマッピングが定義されていない文字実体参照は、変換されずにそのまま残ります。
+# ・同じ文字実体参照に対して複数の定義が行われた場合、
+#   最後に行われた定義のみが有効になります。
+#
+# [Unicode番号(UCS-2,UCS-4)]
+# 0x0000     - 0xFFFF      16進数表記のUCS-2(U+0000     - U+FFFF)
+# 0x00000000 - 0x0010FFFF  16進数表記のUCS-4(U+00000000 - U+0010FFFF)
+# 0          - 65535       10進数表記のUCS-2(U+0000     - U+FFFF)
+# 0          - 1114111     10進数表記のUCS-4(U+00000000 - U+0010FFFF)
+#
+# [記述例]
+# kita    0x5317        # &kita;から"北"(U+5317)への変換を定義します。
+# kita    21271         # Unicode番号は10進数でも記述できます。
+# kita2   0xF963        # &kita2;から"北"(U+F963)への変換を定義します。
+#                       # U+F963はCJK互換領域で定義されている"北"です。
+# kita3   0x2F82B       # Unicode番号はUCS-4でも指定できます。BMP以外のプレーンの文字を指定してもかまいません。
+#                       # &kita3;から"北"(U+2F82B)への変換を定義します。
+#                       # U+2F82BはCJK互換領域補遺で定義されている"北"です。
+#
+#----------------------------------------------------------------------------------------
+nbsp          160
+iexcl         161
+cent          162
+pound         163
+curren        164
+yen           165
+brvbar        166
+sect          167
+uml           168
+copy          169
+ordf          170
+laquo         171
+not           172
+shy           173
+reg           174
+macr          175
+deg           176
+plusmn        177
+sup2          178
+sup3          179
+acute         180
+micro         181
+para          182
+middot        183
+cedil         184
+sup1          185
+ordm          186
+raquo         187
+frac14        188
+frac12        189
+frac34        190
+iquest        191
+Agrave        192
+Aacute        193
+Acirc         194
+Atilde        195
+Auml          196
+Aring         197
+AElig         198
+Ccedil        199
+Egrave        200
+Eacute        201
+Ecirc         202
+Euml          203
+Igrave        204
+Iacute        205
+Icirc         206
+Iuml          207
+ETH           208
+Ntilde        209
+Ograve        210
+Oacute        211
+Ocirc         212
+Otilde        213
+Ouml          214
+times         215
+Oslash        216
+Ugrave        217
+Uacute        218
+Ucirc         219
+Uuml          220
+Yacute        221
+THORN         222
+szlig         223
+agrave        224
+aacute        225
+acirc         226
+atilde        227
+auml          228
+aring         229
+aelig         230
+ccedil        231
+egrave        232
+eacute        233
+ecirc         234
+euml          235
+igrave        236
+iacute        237
+icirc         238
+iuml          239
+eth           240
+ntilde        241
+ograve        242
+oacute        243
+ocirc         244
+otilde        245
+ouml          246
+divide        247
+oslash        248
+ugrave        249
+uacute        250
+ucirc         251
+uuml          252
+yacute        253
+thorn         254
+yuml          255
+fnof          402
+Alpha         913
+Beta          914
+Gamma         915
+Delta         916
+Epsilon       917
+Zeta          918
+Eta           919
+Theta         920
+Iota          921
+Kappa         922
+Lambda        923
+Mu            924
+Nu            925
+Xi            926
+Omicron       927
+Pi            928
+Rho           929
+Sigma         931
+Tau           932
+Upsilon       933
+Phi           934
+Chi           935
+Psi           936
+Omega         937
+alpha         945
+beta          946
+gamma         947
+delta         948
+epsilon       949
+zeta          950
+eta           951
+theta         952
+iota          953
+kappa         954
+lambda        955
+mu            956
+nu            957
+xi            958
+omicron       959
+pi            960
+rho           961
+sigmaf        962
+sigma         963
+tau           964
+upsilon       965
+phi           966
+chi           967
+psi           968
+omega         969
+thetasym      977
+upsih         978
+piv           982
+bull          8226
+hellip        8230
+prime         8242
+Prime         8243
+oline         8254
+frasl         8260
+weierp        8472
+image         8465
+real          8476
+trade         8482
+alefsym       8501
+larr          8592
+uarr          8593
+rarr          8594
+darr          8595
+harr          8596
+crarr         8629
+lArr          8656
+uArr          8657
+rArr          8658
+dArr          8659
+hArr          8660
+forall        8704
+part          8706
+exist         8707
+empty         8709
+nabla         8711
+isin          8712
+notin         8713
+ni            8715
+prod          8719
+sum           8721
+minus         8722
+lowast        8727
+radic         8730
+prop          8733
+infin         8734
+ang           8736
+and           8743
+or            8744
+cap           8745
+cup           8746
+int           8747
+there4        8756
+sim           8764
+cong          8773
+asymp         8776
+ne            8800
+equiv         8801
+le            8804
+ge            8805
+sub           8834
+sup           8835
+nsub          8836
+sube          8838
+supe          8839
+oplus         8853
+otimes        8855
+perp          8869
+sdot          8901
+lceil         8968
+rceil         8969
+lfloor        8970
+rfloor        8971
+lang          9001
+rang          9002
+loz           9674
+spades        9824
+clubs         9827
+hearts        9829
+diams         9830
+quot          34
+amp           38
+apos          39  # defined for XML (not defined in HTML)
+# lt            60  # invalidated for HTML and XML
+# gt            62  # invalidated for HTML and XML
+OElig         338
+oelig         339
+Scaron        352
+scaron        353
+Yuml          376
+circ          710
+tilde         732
+ensp          8194
+emsp          8195
+thinsp        8201
+zwnj          8204
+zwj           8205
+lrm           8206
+rlm           8207
+ndash         8211
+mdash         8212
+lsquo         8216
+rsquo         8217
+sbquo         8218
+ldquo         8220
+rdquo         8221
+bdquo         8222
+dagger        8224
+Dagger        8225
+permil        8240
+lsaquo        8249
+rsaquo        8250
+euro          8364
